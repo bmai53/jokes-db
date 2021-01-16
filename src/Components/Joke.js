@@ -30,7 +30,7 @@ export default ({ jokeId }) => {
   };
 
   const shareJoke = () => {
-    copy(window.location.origin + '/#/' + joke._id);
+    copy(window.location.href.split("/#/") + "/#/" + joke._id);
     setShowSnackbar(true);
   };
 
