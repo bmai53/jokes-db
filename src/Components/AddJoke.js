@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import filter from 'leo-profanity'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
@@ -10,22 +11,21 @@ export default () => {
     const [joke, setJoke] = useState('')
     const [answer, setAnswer] = useState('')
 
-    console.log(process.env.REACT_APP_BACKEND_API);
-
     const addJoke = (event) => {
         event.preventDefault()
-        axios.post(process.env.REACT_APP_BACKEND_API + 'add', {
-            joke: joke,
-            answer: answer
-        })
-            .then((result) => {
-                console.log('res', result)
-                setJoke('')
-                setAnswer('')
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        axios
+          .post(process.env.REACT_APP_BACKEND_API + "add", {
+            joke: filter.clean(joke),
+            answer: filter.clean(answer),
+          })
+          .then((result) => {
+            console.log("res", result);
+            setJoke("");
+            setAnswer("");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
     }
 
     return (
