@@ -11,7 +11,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 
 export default ({ jokeId }) => {
-  console.log('jokeid', jokeId)
   const [joke, setJoke] = useState({});
   const [likes, setLikes] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -52,7 +51,6 @@ export default ({ jokeId }) => {
   };
 
   useEffect(() => {
-    console.log("useeffect ran");
     jokeId ? getJoke(jokeId) : getJoke();
   }, [jokeId]);
 

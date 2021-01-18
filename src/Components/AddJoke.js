@@ -26,7 +26,7 @@ export default ({ setAddedJokeId }) => {
           answer: answer,
         })
         .then((result) => {
-          console.log("res", result.data);
+          console.log("added!", result.data);
           setJoke("");
           setAnswer("");
           setAddedJokeId(result.data._id)
