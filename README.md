@@ -1,6 +1,6 @@
 # jokesDB
 
-A collection of (mostly) funny jokes! Guarenteed to make you laugh, or atleast forcefully exhale through nose. 
+A collection of (mostly) funny jokes! Guaranteed to make you laugh, or atleast forcefully exhale through nose. 
 
 ### Profanity Filter Status: `ON 🟢` 
 Sorry kids, this is on my portfolio
