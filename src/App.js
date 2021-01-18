@@ -14,7 +14,7 @@ function App() {
         octoColor='#151513'
         bannerColor='white'
       />
-      <Typography align='center' variant='h1' style={{color: 'white', margin: '75px'}}>jokesDB</Typography>
+      <Typography align='center' variant='h1' style={{color: 'white', margin: '75px auto'}}>jokesDB</Typography>
 
       <Switch>
         <Route exact path='/' render={() => <Joke />} />

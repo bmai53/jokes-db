@@ -75,7 +75,7 @@ export default ({ jokeId }) => {
           >
             {joke.joke}
           </Typography>
-          <Typography variant='h5'>{joke.answer ? joke.answer : ""}</Typography>
+          <Typography variant='h5' style={{ margin: "25px" }}>{joke.answer ? joke.answer : ""}</Typography>
           <Button
             style={{
               textAlign: "center",
