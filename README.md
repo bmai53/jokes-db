@@ -2,7 +2,7 @@
 
 A collection of (mostly) funny jokes! Guarenteed to make you laugh, or atleast forcefully exhale through nose. 
 
-### Profanity Filter Status: `#00ff00 ON`
+### Profanity Filter Status: `#00ff00`ON
 Sorry kids, this is on my portfolio
 
 ### Features
