@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-export default () => {
+export default ({ setAddedJokeId }) => {
   const [joke, setJoke] = useState("");
   const [answer, setAnswer] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
@@ -26,9 +26,10 @@ export default () => {
           answer: answer,
         })
         .then((result) => {
-          console.log("res", result);
+          console.log("res", result.data);
           setJoke("");
           setAnswer("");
+          setAddedJokeId(result.data._id)
           setShowSuccess(true);
         })
         .catch((err) => {
