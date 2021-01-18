@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import copy from "copy-text-to-clipboard";
+import ExtraButtons from "./ExtraButtons";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 
 export default ({ jokeId }) => {
   const [joke, setJoke] = useState({});
+  const [likes, setLikes] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
 
@@ -21,6 +23,7 @@ export default ({ jokeId }) => {
       .get(process.env.REACT_APP_BACKEND_API + resource)
       .then((result) => {
         setJoke(result.data);
+        setLikes(result.data.likes ? result.data.likes : 0);
         setLoading(false);
       })
       .catch((err) => {
@@ -29,8 +32,17 @@ export default ({ jokeId }) => {
       });
   };
 
+  const likeJoke = () => {
+    axios
+      .post(process.env.REACT_APP_BACKEND_API + `like/${joke._id}`)
+      .then(setLikes(likes + 1))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const shareJoke = () => {
-    copy(window.location.href.split("/#/")[0] + "/#/" + joke._id);
+    copy(window.location.href.split("/#/")[0] + `/#/${joke._id}`);
     setShowSnackbar(true);
   };
 
@@ -58,7 +70,8 @@ export default ({ jokeId }) => {
     );
   }
 
-  console.log(joke);
+  // console.log(joke);
+  
   return (
     <>
       <Card
@@ -75,12 +88,15 @@ export default ({ jokeId }) => {
           >
             {joke.joke}
           </Typography>
-          <Typography variant='h5' style={{ margin: "25px" }}>{joke.answer ? joke.answer : ""}</Typography>
+          <Typography variant='h5' style={{ margin: "25px" }}>
+            {joke.answer ? joke.answer : ""}
+          </Typography>
           <Button
             style={{
               textAlign: "center",
               margin: "25px 25px",
-              width: "125px",
+              width: "300px",
+              height: "50px",
             }}
             variant='contained'
             color='primary'
@@ -88,23 +104,15 @@ export default ({ jokeId }) => {
               getJoke();
             }}
           >
-            New Joke
+            Get Random Joke
           </Button>
-
-          <Button
-            style={{
-              textAlign: "center",
-              margin: "25px 25px",
-              width: "125px",
-            }}
-            variant='contained'
-            color='primary'
-            onClick={() => {
-              shareJoke();
-            }}
-          >
-            Share
-          </Button>
+          <div>
+            <ExtraButtons
+              likes={likes}
+              shareJoke={shareJoke}
+              likeJoke={likeJoke}
+            />
+          </div>
         </CardContent>
       </Card>
       <Snackbar
