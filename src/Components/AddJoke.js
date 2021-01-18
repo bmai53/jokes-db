@@ -17,21 +17,25 @@ export default () => {
 
   const addJoke = (event) => {
     event.preventDefault();
-    axios
-      .post(process.env.REACT_APP_BACKEND_API + "add", {
-        joke: filter.clean(joke),
-        answer: filter.clean(answer),
-      })
-      .then((result) => {
-        console.log("res", result);
-        setJoke("");
-        setAnswer("");
-        setShowSuccess(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowFail(true);
-      });
+    if (filter.check(joke) || filter.check(answer)) {
+      setShowFail(true);
+    } else {
+      axios
+        .post(process.env.REACT_APP_BACKEND_API + "add", {
+          joke: joke,
+          answer: answer,
+        })
+        .then((result) => {
+          console.log("res", result);
+          setJoke("");
+          setAnswer("");
+          setShowSuccess(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setShowFail(true);
+        });
+    }
   };
 
   const handleClose = () => {
