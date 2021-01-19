@@ -19,9 +19,14 @@ export default ({ directLinkId }) => {
       <Typography
         align='center'
         variant='h1'
-        style={{ color: "white", margin: "75px auto" }}
+        style={{ color: "white", margin: "75px auto", textDecoration: "none" }}
       >
-        jokesDB
+        <a
+          style={{ color: "inherit", textDecoration: "inherit" }}
+          href={`${window.location.href.split("/#/")[0]}/#/`}
+        >
+          jokesDB
+        </a>
       </Typography>
       <Joke jokeId={addedJokeId ? addedJokeId : directLinkId} />
       <AddJoke setAddedJokeId={setAddedJokeId} />
