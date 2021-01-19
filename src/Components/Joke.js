@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import copy from "copy-text-to-clipboard";
-import ExtraButtons from "./ExtraButtons";
+import JokeButtons from "./JokeButtons";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -107,7 +107,7 @@ export default ({ jokeId }) => {
             Get Random Joke
           </Button>
           <div>
-            <ExtraButtons
+            <JokeButtons
               likes={likes}
               shareJoke={shareJoke}
               likeJoke={likeJoke}

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import fblogo from "../fblogo.png";
 
 export default ({ addJoke, setUserId }) => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const marginStyle = { margin: "50px 0 0" };
+  const marginStyle = { margin: "50px 0" };
 
   const statusCheckCallBack = (response) => {
     const { status, authResponse } = response;
@@ -52,7 +53,7 @@ export default ({ addJoke, setUserId }) => {
         <Button
           style={{
             backgroundColor: "#3b5998",
-            textAlign: "center",
+            textAlign: 'center',
             width: "300px",
             height: "50px",
             ...marginStyle,
@@ -63,7 +64,8 @@ export default ({ addJoke, setUserId }) => {
             fbLogin();
           }}
         >
-          Connect with Facebook
+          <img style={{ width: "30px", margin: '10px 10px 10px 0'}} src={fblogo} />
+          <span>Connect with Facebook</span>
         </Button>
         <Typography style={{ margin: "24px" }}>
           Log into Facebook to add new jokes to the database!
