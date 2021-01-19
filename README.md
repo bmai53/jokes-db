@@ -6,6 +6,7 @@ A collection of (mostly) funny jokes! Guaranteed to make you laugh, or atleast f
 Sorry kids, this is on my portfolio
 
 ### Features
+- Facebook integration
 - Adding jokes
 - Sharing jokes
 - Liking jokes
