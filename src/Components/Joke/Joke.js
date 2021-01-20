@@ -3,15 +3,16 @@ import axios from "axios";
 import copy from "copy-text-to-clipboard";
 
 import JokeButtons from "./JokeButtons";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../ErrorMessage";
+import SnackBar from "../Snackbar";
 
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
+
+import css from "@styles";
 
 export default ({ jokeId }) => {
   const [joke, setJoke] = useState({});
@@ -62,32 +63,17 @@ export default ({ jokeId }) => {
 
   if (loading) {
     return (
-      <Card
-        style={{
-          maxWidth: "1000px",
-          minHeight: "300px",
-          textAlign: "center",
-          margin: "25px auto 25px auto",
-        }}
-      >
+      <Card style={css.card}>
         <CardContent>
-          <CircularProgress size={100} style={{padding: '75px 0'}}/>
+          <CircularProgress size={100} style={css.loading} />
         </CardContent>
       </Card>
     );
   }
 
-  // console.log(joke);
-
   return (
     <>
-      <Card
-        style={{
-          maxWidth: "1000px",
-          textAlign: "center",
-          margin: "25px auto 25px auto",
-        }}
-      >
+      <Card style={css.card}>
         <CardContent>
           {error ? (
             <ErrorMessage isDirectUrl={!!jokeId} />
@@ -95,23 +81,18 @@ export default ({ jokeId }) => {
             <>
               <Typography
                 variant='h5'
-                style={{ fontWeight: "bold", margin: "25px" }}
+                style={{ ...css.jokeText, fontWeight: "bold" }}
               >
                 {joke.joke}
               </Typography>
-              <Typography variant='h5' style={{ margin: "25px" }}>
+              <Typography variant='h5' style={css.jokeText}>
                 {joke.answer ? joke.answer : ""}
               </Typography>
             </>
           )}
 
           <Button
-            style={{
-              textAlign: "center",
-              margin: "25px 25px",
-              width: "300px",
-              height: "50px",
-            }}
+            style={css.button}
             variant='contained'
             color='primary'
             onClick={() => {
@@ -131,16 +112,11 @@ export default ({ jokeId }) => {
           </div>
         </CardContent>
       </Card>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={3000}
+      <SnackBar
         open={showSnackbar}
         onClose={handleClose}
-      >
-        <MuiAlert onClose={handleClose} severity='success'>
-          Share link copied to clipboard!
-        </MuiAlert>
-      </Snackbar>
+        text='Share link copied to clipboard!'
+      />
     </>
   );
 };

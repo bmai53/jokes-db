@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import fblogo from "../fblogo.png";
+import fblogo from "@images/fblogo.png";
+import css from "@styles";
 
 export default ({ addJoke, setUserId }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,12 +33,7 @@ export default ({ addJoke, setUserId }) => {
   if (loggedIn) {
     return (
       <Button
-        style={{
-          textAlign: "center",
-          width: "300px",
-          height: "50px",
-          ...marginStyle,
-        }}
+        style={{ ...css.button, ...marginStyle }}
         variant='contained'
         color='primary'
         onClick={(event) => {
@@ -52,22 +48,20 @@ export default ({ addJoke, setUserId }) => {
       <>
         <Button
           style={{
-            backgroundColor: "#3b5998",
-            textAlign: 'center',
-            width: "300px",
-            height: "50px",
+            ...css.button,
             ...marginStyle,
+            backgroundColor: "#3b5998",
+            color: "#fff",
           }}
           variant='contained'
-          color='primary'
           onClick={() => {
             fbLogin();
           }}
         >
-          <img style={{ width: "30px", margin: '10px 10px 10px 0'}} src={fblogo} />
+          <img style={css.fblogo} src={fblogo} />
           <span>Connect with Facebook</span>
         </Button>
-        <Typography style={{ margin: "24px" }}>
+        <Typography>
           Log into Facebook to add new jokes to the database!
         </Typography>
       </>

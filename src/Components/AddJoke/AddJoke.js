@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import filter from "leo-profanity";
 import AddJokeButtons from "./AddJokeButtons";
+import Snackbar from "../Snackbar";
+
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+
+import css from "@styles";
 
 export default ({ setAddedJokeId }) => {
   const [joke, setJoke] = useState("");
@@ -49,17 +51,11 @@ export default ({ setAddedJokeId }) => {
 
   return (
     <>
-      <Card
-        style={{
-          maxWidth: "1000px",
-          textAlign: "center",
-          margin: "25px auto 25px auto",
-        }}
-      >
-        <Typography variant='h5' style={{ margin: "25px auto 25px auto" }}>
+      <Card style={css.card}>
+        <Typography variant='h5' style={css.jokeText}>
           Add Joke
         </Typography>
-        <CardContent style={{ margin: "25px auto 25px auto" }}>
+        <CardContent style={css.card}>
           <TextField
             fullWidth
             label='Question'
@@ -84,30 +80,20 @@ export default ({ setAddedJokeId }) => {
             }}
             variant='outlined'
           />
-          <AddJokeButtons addJoke={addJoke} setUserId ={setUserId}/>
+          <AddJokeButtons addJoke={addJoke} setUserId={setUserId} />
         </CardContent>
       </Card>
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={3000}
         open={showSuccess}
         onClose={handleClose}
-      >
-        <MuiAlert onClose={handleClose} severity='success'>
-          Successfully added joke!
-        </MuiAlert>
-      </Snackbar>
-
+        text='Successfully added joke!'
+      />
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        autoHideDuration={3000}
         open={showFail}
         onClose={handleClose}
-      >
-        <MuiAlert onClose={handleClose} severity='error'>
-          Failed to add joke.
-        </MuiAlert>
-      </Snackbar>
+        text='Failed to add joke.'
+        type='error'
+      />
     </>
   );
 };

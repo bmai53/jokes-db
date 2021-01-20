@@ -1,7 +1,31 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const path = require("path");
+
+function resolve(dir) {
+  return path.join(__dirname,  dir);
+}
 
 module.exports = {
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./public/index.html",
+      favicon: "./public/favicon.ico",
+      filename: "./index.html",
+    }),
+    new Dotenv(),
+  ],
+  devServer: {
+    https: true,
+  },
+  target: "node",
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    alias: {
+      "@styles": resolve("./src/styles/"),
+      "@images": resolve("./src/images/"),
+    },
+  },
   module: {
     rules: [
       {
@@ -33,16 +57,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      favicon: "./public/favicon.ico",
-      filename: "./index.html",
-    }),
-    new Dotenv(),
-  ],
-  devServer: {
-    https: true
-  },
-  target: "node",
 };
