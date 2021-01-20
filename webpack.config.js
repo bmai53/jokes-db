@@ -41,5 +41,8 @@ module.exports = {
     }),
     new Dotenv(),
   ],
+  devServer: {
+    https: true
+  },
   target: "node",
 };

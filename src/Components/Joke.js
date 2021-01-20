@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import copy from "copy-text-to-clipboard";
+
 import JokeButtons from "./JokeButtons";
+import ErrorMessage from "./ErrorMessage";
+
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -14,6 +17,7 @@ export default ({ jokeId }) => {
   const [joke, setJoke] = useState({});
   const [likes, setLikes] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const getJoke = (jokeId) => {
@@ -24,10 +28,12 @@ export default ({ jokeId }) => {
       .then((result) => {
         setJoke(result.data);
         setLikes(result.data.likes ? result.data.likes : 0);
+        setError(false);
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
         setLoading(false);
       });
   };
@@ -59,19 +65,20 @@ export default ({ jokeId }) => {
       <Card
         style={{
           maxWidth: "1000px",
+          minHeight: "300px",
           textAlign: "center",
           margin: "25px auto 25px auto",
         }}
       >
         <CardContent>
-          <CircularProgress size={100} />
+          <CircularProgress size={100} style={{padding: '75px 0'}}/>
         </CardContent>
       </Card>
     );
   }
 
   // console.log(joke);
-  
+
   return (
     <>
       <Card
@@ -82,15 +89,22 @@ export default ({ jokeId }) => {
         }}
       >
         <CardContent>
-          <Typography
-            variant='h5'
-            style={{ fontWeight: "bold", margin: "25px" }}
-          >
-            {joke.joke}
-          </Typography>
-          <Typography variant='h5' style={{ margin: "25px" }}>
-            {joke.answer ? joke.answer : ""}
-          </Typography>
+          {error ? (
+            <ErrorMessage isDirectUrl={!!jokeId} />
+          ) : (
+            <>
+              <Typography
+                variant='h5'
+                style={{ fontWeight: "bold", margin: "25px" }}
+              >
+                {joke.joke}
+              </Typography>
+              <Typography variant='h5' style={{ margin: "25px" }}>
+                {joke.answer ? joke.answer : ""}
+              </Typography>
+            </>
+          )}
+
           <Button
             style={{
               textAlign: "center",
@@ -107,11 +121,13 @@ export default ({ jokeId }) => {
             Get Random Joke
           </Button>
           <div>
-            <JokeButtons
-              likes={likes}
-              shareJoke={shareJoke}
-              likeJoke={likeJoke}
-            />
+            {!error && (
+              <JokeButtons
+                likes={likes}
+                shareJoke={shareJoke}
+                likeJoke={likeJoke}
+              />
+            )}
           </div>
         </CardContent>
       </Card>
